@@ -1,0 +1,74 @@
+'use client'
+
+import { Card, CardContent } from "@/components/ui/card";
+import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Copy } from "lucide-react";
+import { useForm } from "react-hook-form";
+import CopyButton from "../components/copy-button";
+
+const base64Pattern = /^[A-Za-z0-9=+\/]*$/;
+
+export default function Base64Tool() {
+    const { register, watch, setValue } = useForm({
+        defaultValues: {
+            encoded: '',
+            decoded: ''
+        }
+    });
+
+    const encoded = watch('encoded');
+    const decoded = watch('decoded');
+
+    const encode = (value: string) => {
+        try {
+            const encoded = btoa(value);
+            setValue('encoded', encoded);
+        } catch {
+            setValue('encoded', 'Invalid input');
+        }
+    };
+
+    const decode = (value: string) => {
+        const isValid = base64Pattern.test(value);
+
+        if (!isValid) {
+            setValue('decoded', 'Invalid input');
+            return;
+        }
+
+        try {
+            const decoded = atob(value);
+            setValue('decoded', decoded);
+        } catch {
+            setValue('decoded', 'Invalid input');
+        }
+    };
+
+    return (
+        <Card className="w-100 max-w-screen">
+            <CardContent>
+                <FieldSet>
+                    <FieldGroup>
+                        <Field>
+                            <div className="flex flex-row gap-3">
+                                <FieldLabel htmlFor="decoded">Decoded</FieldLabel>
+                                <CopyButton content={decoded} />
+                            </div>
+                            <Textarea id="decoded" {...register('decoded')} onChange={(e) => encode(e.target.value)} />
+                        </Field>
+
+                        <Field>
+                            <div className="flex flex-row gap-3">
+                                <FieldLabel htmlFor="encoded">Encoded</FieldLabel>
+                                <CopyButton content={encoded} />
+                            </div>
+                            <Textarea id="encoded" {...register('encoded')} onChange={(e) => decode(e.target.value)} />
+                        </Field>
+                    </FieldGroup>
+                </FieldSet>
+            </CardContent>
+        </Card>
+    );
+}
