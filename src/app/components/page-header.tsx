@@ -16,7 +16,7 @@ export function PageHeader(props: PageHeaderProps) {
     return (
         <div className="w-full grid grid-cols-[1fr_auto_1fr] border-b border-border p-3 mb-3 items-center">
             {<HomeButton invisible={hideHomeButton} />}
-            <h1 className="text-3xl font-bold leading-none">{title}</h1>
+            <h1 className="text-3xl font-bold leading-none text-center">{title}</h1>
             &nbsp;
         </div>
     );
