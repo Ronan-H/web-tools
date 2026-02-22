@@ -47,28 +47,26 @@ export default function Base64Tool() {
     };
 
     return (
-        <Card className="w-100 max-w-screen">
-            <CardContent>
-                <FieldSet>
-                    <FieldGroup>
-                        <Field>
-                            <div className="flex flex-row gap-3">
-                                <FieldLabel htmlFor="decoded">Decoded</FieldLabel>
-                                <CopyButton content={decoded} />
-                            </div>
-                            <Textarea id="decoded" {...register('decoded')} onChange={(e) => encode(e.target.value)} />
-                        </Field>
+        <div className="w-100 max-w-screen">
+            <FieldSet>
+                <FieldGroup>
+                    <Field>
+                        <div className="flex flex-row gap-3">
+                            <FieldLabel htmlFor="decoded">Decoded</FieldLabel>
+                            <CopyButton content={decoded} />
+                        </div>
+                        <Textarea id="decoded" rows={5} {...register('decoded')} onChange={(e) => encode(e.target.value)} />
+                    </Field>
 
-                        <Field>
-                            <div className="flex flex-row gap-3">
-                                <FieldLabel htmlFor="encoded">Encoded</FieldLabel>
-                                <CopyButton content={encoded} />
-                            </div>
-                            <Textarea id="encoded" {...register('encoded')} onChange={(e) => decode(e.target.value)} />
-                        </Field>
-                    </FieldGroup>
-                </FieldSet>
-            </CardContent>
-        </Card>
+                    <Field>
+                        <div className="flex flex-row gap-3">
+                            <FieldLabel htmlFor="encoded">Encoded</FieldLabel>
+                            <CopyButton content={encoded} />
+                        </div>
+                        <Textarea id="encoded" rows={5} {...register('encoded')} onChange={(e) => decode(e.target.value)} />
+                    </Field>
+                </FieldGroup>
+            </FieldSet>
+        </div>
     );
 }

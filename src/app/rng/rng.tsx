@@ -62,37 +62,35 @@ export default function RNG() {
     };
 
     return (
-        <Card className="w-60 max-w-screen">
-            <CardContent>
-                <FieldSet>
-                    <FieldGroup>
-                        <Field data-invalid={!isFromValid}>
-                            <FieldLabel htmlFor="min-input">From<span className="font-thin">(inclusive)</span></FieldLabel>
-                            <Input id="min-input" type="number" aria-invalid={!isFromValid} {...register('from')} />
-                            {fromErrorMsg && <FieldError>{fromErrorMsg}</FieldError>}
-                        </Field>
+        <div className="w-60 max-w-screen">
+            <FieldSet>
+                <FieldGroup>
+                    <Field data-invalid={!isFromValid}>
+                        <FieldLabel htmlFor="min-input">From<span className="font-thin">(inclusive)</span></FieldLabel>
+                        <Input id="min-input" type="number" aria-invalid={!isFromValid} {...register('from')} />
+                        {fromErrorMsg && <FieldError>{fromErrorMsg}</FieldError>}
+                    </Field>
 
-                        <Field data-invalid={!isToValid}>
-                            <FieldLabel htmlFor="max-input">To<span className="font-thin">(inclusive)</span></FieldLabel>
-                            <Input id="max-input" type="number" aria-invalid={!isToValid} {...register('to')} />
-                            {toErrorMsg && <FieldError>{toErrorMsg}</FieldError>}
-                        </Field>
+                    <Field data-invalid={!isToValid}>
+                        <FieldLabel htmlFor="max-input">To<span className="font-thin">(inclusive)</span></FieldLabel>
+                        <Input id="max-input" type="number" aria-invalid={!isToValid} {...register('to')} />
+                        {toErrorMsg && <FieldError>{toErrorMsg}</FieldError>}
+                    </Field>
 
-                        <div className="flex flex-col gap-2">
-                            <Button variant="outline" onClick={generateNum} disabled={hasAnyError}>Generate</Button>
+                    <div className="flex flex-col gap-2">
+                        <Button variant="outline" onClick={generateNum} disabled={hasAnyError}>Generate</Button>
+                    </div>
+
+                    {!!(randomNum !== null && !hasAnyError) && (
+                        <div className="flex flex-col items-center overflow-hidden text-clip">
+                            <span className="text-sm text-muted-foreground">Random Number #{count}:</span>
+                            <span key={count} className="text-4xl font-bold tracking-tight animate-in fade-in duration-1000">
+                                <>{randomNum ?? 'Invalid'}</>
+                            </span>
                         </div>
-
-                        {!!(randomNum !== null && !hasAnyError) && (
-                            <div className="flex flex-col items-center overflow-hidden text-clip">
-                                <span className="text-sm text-muted-foreground">Random Number #{count}:</span>
-                                <span key={count} className="text-4xl font-bold tracking-tight animate-in fade-in duration-1000">
-                                    <>{randomNum ?? 'Invalid'}</>
-                                </span>
-                            </div>
-                        )}
-                    </FieldGroup>
-                </FieldSet>
-            </CardContent>
-        </Card>
+                    )}
+                </FieldGroup>
+            </FieldSet>
+        </div>
     );
 }
