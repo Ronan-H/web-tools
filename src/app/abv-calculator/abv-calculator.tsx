@@ -34,17 +34,17 @@ export default function AbvCalculator() {
                     <FieldGroup>
                         <Field>
                             <FieldLabel htmlFor="og-input">Original Gravity (OG)</FieldLabel>
-                            <Input id="og-input" type="number" {...register('og')} />
+                            <Input id="og-input" type="number" data-testid="og-input" {...register('og')} />
                         </Field>
 
                         <Field>
                             <FieldLabel htmlFor="fg-input">Final Gravity (FG)</FieldLabel>
-                            <Input id="fg-input" type="number" {...register('fg')} />
+                            <Input id="fg-input" type="number" data-testid="fg-input" {...register('fg')} />
                         </Field>
 
                         <div className="flex flex-col items-center overflow-hidden text-clip">
                             <span className="text-sm text-muted-foreground">Estimated ABV</span>
-                            <span className="text-4xl font-bold tracking-tight">
+                            <span className="text-4xl font-bold tracking-tight" data-testid="abv-result">
                                 {calcAbv(og, fg)}
                             </span>
                         </div>
