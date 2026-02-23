@@ -1,9 +1,7 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { HomeButton } from "./HomeButton";
+import { InfoButton } from "./info-button";
 
 type PageHeaderProps = {
     title: string;
@@ -15,9 +13,13 @@ export function PageHeader(props: PageHeaderProps) {
 
     return (
         <div className="w-full grid grid-cols-[1fr_auto_1fr] border-b border-border p-3 mb-3 items-center">
-            {<HomeButton invisible={hideHomeButton} />}
+            <div className="justify-self-start">
+                <HomeButton invisible={hideHomeButton} />
+            </div>
             <h1 className="text-3xl font-bold leading-none text-center">{title}</h1>
-            &nbsp;
+            <div className="justify-self-end">
+                <InfoButton />
+            </div>
         </div>
     );
 }

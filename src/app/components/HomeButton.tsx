@@ -14,7 +14,7 @@ export function HomeButton(props: HomeButtonProps) {
     return (
         <Button
             variant="outline"
-            className={"justify-self-start cursor-pointer" + (invisible ? ' invisible' : '')}
+            className={"cursor-pointer" + (invisible ? ' invisible' : '')}
             asChild
         >
             <Link href="/">
