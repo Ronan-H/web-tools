@@ -12,4 +12,8 @@ export const TOOL_LIST: { title: string, route: string }[] = [
         title: 'Random Number Generator',
         route: '/rng',
     },
+    {
+        title: 'Color Picker',
+        route: '/color-picker',
+    },
 ];
