@@ -13,7 +13,7 @@ function insertStrAtIndex(str: string, c: string, index: number) {
 
 type PasswordOptions = {
     numWords: number;
-    capitalEnd: boolean;
+    capitalizeEnd: boolean;
     includeSymbol: boolean;
     includeDigit: boolean;
 }
@@ -36,6 +36,10 @@ export function generatePassword(wordlist: string[], options: PasswordOptions): 
         const symbol = pickRandomFromArray(NO_SHIFT_SYMBOLS);
         const index = Math.floor(Math.random() * (password.length - 1)) + 1;
         password = insertStrAtIndex(password, symbol, index);
+    }
+
+    if (options.capitalizeEnd) {
+        password = password.slice(0, password.length - 1) + password.charAt(password.length - 1).toUpperCase();
     }
 
     return password;
