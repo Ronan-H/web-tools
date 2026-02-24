@@ -1,9 +1,14 @@
 
-const NO_SHIFT_SYMBOLS = ['-','=','[',']','\\',';',"'",',','.','/'];
+const NO_SHIFT_SYMBOLS = ['-','=','[',']',';',"'",',','.','/'];
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+function randIntBetween(fromInclusive: number, toExclusive: number) {
+    const range = toExclusive - fromInclusive;
+    return fromInclusive + Math.floor(Math.random() * range);
+}
+
 function pickRandomFromArray<T>(array: Array<T>): T {
-    const index = Math.floor(Math.random() * array.length);
+    const index = randIntBetween(0, array.length);
     return array[index];
 }
 
@@ -18,23 +23,26 @@ type PasswordOptions = {
     includeDigit: boolean;
 }
 
-export function generatePassword(wordlist: string[], options: PasswordOptions): string {
-    let password = '';
+export function generatePassword(wordlist: string[], options: PasswordOptions) {
+    const words = [];
     
     for (let i = 0; i < options.numWords; i++) {
-        const nextIndex = Math.floor(Math.random() * wordlist.length);
-        password += wordlist[nextIndex];
+        const nextIndex = randIntBetween(0, wordlist.length);
+        console.log(nextIndex)
+        words.push(wordlist[nextIndex]);
     }
+
+    let password = words.join('');
 
     if (options.includeDigit) {
         const digit = pickRandomFromArray(DIGITS);
-        const index = Math.floor(Math.random() * (password.length - 1)) + 1;
+        const index = randIntBetween(1, password.length - 1);
         password = insertStrAtIndex(password, digit, index);
     }
 
     if (options.includeSymbol) {
         const symbol = pickRandomFromArray(NO_SHIFT_SYMBOLS);
-        const index = Math.floor(Math.random() * (password.length - 1)) + 1;
+        const index = randIntBetween(1, password.length - 1);
         password = insertStrAtIndex(password, symbol, index);
     }
 
@@ -42,7 +50,10 @@ export function generatePassword(wordlist: string[], options: PasswordOptions): 
         password = password.slice(0, password.length - 1) + password.charAt(password.length - 1).toUpperCase();
     }
 
-    return password;
+    return {
+        password,
+        words,
+    };
 }
 
 export function generatePasswords(wordlist: string[], options: PasswordOptions, num: number) {

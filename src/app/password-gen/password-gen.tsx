@@ -2,22 +2,18 @@
 
 import { useMemo, useState } from "react";
 import { WORD_LIST } from "./words";
-import { generatePasswords } from "./password-functions";
+import { generatePassword, generatePasswords } from "./password-functions";
 import CopyButton from "../components/copy-button";
 import React from "react";
 import { Slider } from "@/components/ui/slider";
 import { Controller, useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { FieldGroup, Field, FieldTitle, FieldDescription } from "@/components/ui/field";
+import { FieldGroup, Field, FieldDescription } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
-
-const NUM_GEN = 10;
+import { Button } from "@/components/ui/button";
+import { Copy, RefreshCw } from "lucide-react";
 
 const CHECKBOX_FIELDS = [
-    {
-        fieldName: 'capitalizeEnd',
-        label: 'Capitalize last letter'
-    },
     {
         fieldName: 'includeDigit',
         label: 'Include a digit'
@@ -26,15 +22,19 @@ const CHECKBOX_FIELDS = [
         fieldName: 'includeSymbol',
         label: 'Include a symbol'
     },
+    {
+        fieldName: 'capitalizeEnd',
+        label: 'Capitalize last letter'
+    },
 ] as const;
 
 export default function PasswordGen() {
-    const { control, watch, register } = useForm({
+    const { control, watch } = useForm({
         defaultValues: {
             numWords: [2],
             capitalizeEnd: false,
-            includeDigit: false,
-            includeSymbol: false,
+            includeDigit: true,
+            includeSymbol: true,
         }
     });
 
@@ -43,7 +43,9 @@ export default function PasswordGen() {
     const includeDigit = watch('includeDigit');
     const includeSymbol = watch('includeSymbol');
 
-    const passwords = useMemo(() => generatePasswords(
+    const [iteration, setIteration] = useState(0);
+
+    const password = useMemo(() => generatePassword(
         WORD_LIST,
         {
             numWords: numWords[0],
@@ -51,28 +53,19 @@ export default function PasswordGen() {
             includeDigit,
             includeSymbol,
         },
-        NUM_GEN,
-    ), [numWords, capitalizeEnd, includeDigit, includeSymbol]);
+    ), [numWords, capitalizeEnd, includeDigit, includeSymbol, iteration]);
+
+    const fontSizeMap = {
+        1: 'text-4xl',
+        2: 'text-3xl',
+        3: 'text-3xl',
+        4: 'text-3xl',
+    } as { [key: number]: string };
+    const fontSize = fontSizeMap[numWords[0]];
 
     return (<>
-        <div className="mx-auto grid w-full max-w-xs gap-3">
-            <FieldGroup className="max-w-sm">
-                {CHECKBOX_FIELDS.map(({ fieldName, label }) => (
-                    <Field orientation="horizontal">
-                        <Label htmlFor={fieldName}>{label}</Label>
-                        <Controller
-                            name={fieldName}
-                            control={control}
-                            render={({ field }) => (
-                            <Checkbox
-                                id={fieldName}
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                            />
-                            )}
-                        />
-                    </Field>
-                ))}
+        <div className="flex flex-col items-center gap-3 w-50">
+            <FieldGroup className="max-w-sm mb-3">
                 <Field>
                     <Label htmlFor="numWords">Number of Words</Label>
                     <FieldDescription>{numWords}</FieldDescription>
@@ -82,7 +75,7 @@ export default function PasswordGen() {
                         render={({ field }) => (
                             <Slider
                                 min={1}
-                                max={5}
+                                max={4}
                                 step={1}
                                 value={field.value}
                                 onValueChange={field.onChange}
@@ -90,16 +83,47 @@ export default function PasswordGen() {
                         )}
                     />
                 </Field>
+                <div className="grid grid-cols-[1fr_auto] gap-x-6 gap-y-3 items-center">
+                    {CHECKBOX_FIELDS.map(({ fieldName, label }) => (
+                        <React.Fragment key={fieldName}>
+                            <Label htmlFor={fieldName}>{label}</Label>
+
+                            <Controller
+                                name={fieldName}
+                                control={control}
+                                render={({ field }) => (
+                                    <Checkbox
+                                        id={fieldName}
+                                        checked={field.value}
+                                        onCheckedChange={field.onChange}
+                                    />
+                                )}
+                            />
+                        </React.Fragment>
+                    ))}
+                </div>
             </FieldGroup>
+            <span className="text-sm text-muted-foreground">Generated password:</span>
+            <div className="grid grid-cols-2 grid-cols-[auto_auto] gap-3">
+                <div className="flex flex-col items-center">
+                    <span className={`${fontSize} whitespace-nowrap`}>{password.password}</span>
+                    <span className="italic">
+                        {password.words.join(', ')}
+                    </span>
+                    {password.password.length} characters
+                </div>
+            </div>
+            <div className="flex flex-row">
+                <CopyButton content={password.password} />
+                <Button
+                    variant="outline"
+                    className={"cursor-pointer aspect-square"}
+                    onClick={() => setIteration((i) => i + 1)}
+                >
+                    <RefreshCw />
+                </Button>
+            </div>
         </div>
-        <div className="grid grid-cols-2 grid-cols-[auto_auto] gap-3">
-            {passwords.map(({ key, password }) => (
-                <React.Fragment key={key}>
-                    <span className="text-xl">{password}</span>
-                    <CopyButton content={password} />
-                </React.Fragment>
-            ))}
-        </div>
-        </>
+    </>
     );
 }
