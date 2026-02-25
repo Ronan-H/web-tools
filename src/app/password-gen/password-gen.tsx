@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { WORD_LIST } from "./words";
 import { generatePassword, generatePasswords } from "./password-functions";
 import CopyButton from "../components/copy-button";
@@ -29,6 +29,12 @@ const CHECKBOX_FIELDS = [
 ] as const;
 
 export default function PasswordGen() {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true)
+    }, []);
+
     const { control, watch } = useForm({
         defaultValues: {
             numWords: [2],
@@ -62,6 +68,29 @@ export default function PasswordGen() {
         4: 'text-3xl',
     } as { [key: number]: string };
     const fontSize = fontSizeMap[numWords[0]];
+
+    // This is to avoid hydration mismatch errors, and avoid calculating passwords server-side
+    const passwordPlaceholder = () => (
+        <div className="flex flex-col items-center">
+            <span className={`${fontSize} whitespace-nowrap invisible`}>-</span>
+            <span className="italic invisible">
+                -
+            </span>
+            <span className="invisible">-</span>
+        </div>
+    );
+
+    const passwordSection = () => (
+        <div className="grid grid-cols-2 grid-cols-[auto_auto] gap-3">
+            <div className="flex flex-col items-center">
+                <span className={`${fontSize} whitespace-nowrap`}>{password.password}</span>
+                <span className="italic">
+                    {password.words.join(', ')}
+                </span>
+                <span>{password.password.length} characters</span>
+            </div>
+        </div>
+    );
 
     return (<>
         <div className="flex flex-col items-center gap-3 w-50">
@@ -104,15 +133,7 @@ export default function PasswordGen() {
                 </div>
             </FieldGroup>
             <span className="text-sm text-muted-foreground">Generated password:</span>
-            <div className="grid grid-cols-2 grid-cols-[auto_auto] gap-3">
-                <div className="flex flex-col items-center">
-                    <span className={`${fontSize} whitespace-nowrap`}>{password.password}</span>
-                    <span className="italic">
-                        {password.words.join(', ')}
-                    </span>
-                    {password.password.length} characters
-                </div>
-            </div>
+            {isClient ? passwordSection() : passwordPlaceholder()}
             <div className="flex flex-row">
                 <CopyButton content={password.password} />
                 <Button

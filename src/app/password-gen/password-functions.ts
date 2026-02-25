@@ -28,7 +28,6 @@ export function generatePassword(wordlist: string[], options: PasswordOptions) {
     
     for (let i = 0; i < options.numWords; i++) {
         const nextIndex = randIntBetween(0, wordlist.length);
-        console.log(nextIndex)
         words.push(wordlist[nextIndex]);
     }
 
