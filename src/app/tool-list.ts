@@ -16,4 +16,8 @@ export const TOOL_LIST: { title: string, route: string }[] = [
         title: 'Color Picker',
         route: '/color-picker',
     },
+    {
+        title: 'Memorable Password Generator',
+        route: '/password-gen',
+    },
 ];

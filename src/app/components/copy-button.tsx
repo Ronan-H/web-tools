@@ -25,7 +25,7 @@ export default function CopyButton(props: CopyButtonProps) {
     return (
         <Button
             variant="outline"
-            className={"cursor-pointer"}
+            className={"cursor-pointer aspect-square"}
             onClick={async () => await tryWriteContent()}
         >
             <Copy />
