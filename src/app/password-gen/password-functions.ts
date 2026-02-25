@@ -2,9 +2,16 @@
 const NO_SHIFT_SYMBOLS = ['-','=','[',']',';',"'",',','.','/'];
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
+function secureRandomFloat() {
+    const array = new Uint32Array(1);
+    crypto.getRandomValues(array);
+
+    return array[0] / 2 ** 32;
+}
+
 function randIntBetween(fromInclusive: number, toExclusive: number) {
     const range = toExclusive - fromInclusive;
-    return fromInclusive + Math.floor(Math.random() * range);
+    return fromInclusive + Math.floor(secureRandomFloat() * range);
 }
 
 function pickRandomFromArray<T>(array: Array<T>): T {

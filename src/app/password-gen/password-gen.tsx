@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { FieldGroup, Field, FieldDescription } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Copy, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 
 const CHECKBOX_FIELDS = [
     {
