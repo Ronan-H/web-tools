@@ -1,9 +1,8 @@
-'use client'
+'use client';
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { useForm } from 'react-hook-form';
 
 function calcAbv(og: string, fg: string) {
     const ogFloat = parseFloat(og);
@@ -20,8 +19,8 @@ export default function AbvCalculator() {
     const { register, watch } = useForm({
         defaultValues: {
             og: '1.1',
-            fg: '1.0'
-        }
+            fg: '1.0',
+        },
     });
 
     const og = watch('og');
@@ -32,18 +31,37 @@ export default function AbvCalculator() {
             <FieldSet>
                 <FieldGroup>
                     <Field>
-                        <FieldLabel htmlFor="og-input">Original Gravity (OG)</FieldLabel>
-                        <Input id="og-input" type="number" data-testid="og-input" {...register('og')} />
+                        <FieldLabel htmlFor="og-input">
+                            Original Gravity (OG)
+                        </FieldLabel>
+                        <Input
+                            id="og-input"
+                            type="number"
+                            data-testid="og-input"
+                            {...register('og')}
+                        />
                     </Field>
 
                     <Field>
-                        <FieldLabel htmlFor="fg-input">Final Gravity (FG)</FieldLabel>
-                        <Input id="fg-input" type="number" data-testid="fg-input" {...register('fg')} />
+                        <FieldLabel htmlFor="fg-input">
+                            Final Gravity (FG)
+                        </FieldLabel>
+                        <Input
+                            id="fg-input"
+                            type="number"
+                            data-testid="fg-input"
+                            {...register('fg')}
+                        />
                     </Field>
 
                     <div className="flex flex-col items-center overflow-hidden text-clip">
-                        <span className="text-sm text-muted-foreground">Estimated ABV</span>
-                        <span className="text-4xl font-bold tracking-tight" data-testid="abv-result">
+                        <span className="text-sm text-muted-foreground">
+                            Estimated ABV
+                        </span>
+                        <span
+                            className="text-4xl font-bold tracking-tight"
+                            data-testid="abv-result"
+                        >
                             {calcAbv(og, fg)}
                         </span>
                     </div>

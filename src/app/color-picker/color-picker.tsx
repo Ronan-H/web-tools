@@ -1,24 +1,26 @@
-'use client'
+'use client';
 
-import { useState } from "react";
-import { HexColorPicker } from "react-colorful";
-import CopyButton from "../components/copy-button";
-import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
+import { Input } from '@/components/ui/input';
+import { HexColorPicker } from 'react-colorful';
+import { useForm } from 'react-hook-form';
+import CopyButton from '../components/copy-button';
 
 export default function ColorPicker() {
     const { register, watch, setValue } = useForm({
         defaultValues: {
             color: '#000000',
-        }
+        },
     });
-    
-    const color = watch('color')
-    
+
+    const color = watch('color');
+
     return (
         <div className="w-60 max-w-screen flex flex-col items-center gap-3">
             <div className="col-span-3 row-span-1">
-                <HexColorPicker color={color} onChange={(newColor) => setValue('color', newColor)} />
+                <HexColorPicker
+                    color={color}
+                    onChange={(newColor) => setValue('color', newColor)}
+                />
             </div>
             <div className="flex flex-row gap-3 items-center w-full justify-center">
                 <div

@@ -1,7 +1,6 @@
-
 type HeaderWrapperProps = {
     children: React.ReactNode;
-}
+};
 
 export default function HeaderWrapper(props: HeaderWrapperProps) {
     const { children } = props;

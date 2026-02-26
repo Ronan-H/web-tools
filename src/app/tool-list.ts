@@ -1,5 +1,4 @@
-
-export const TOOL_LIST: { title: string, route: string }[] = [
+export const TOOL_LIST: { title: string; route: string }[] = [
     {
         title: 'ABV Calculator',
         route: '/abv-calculator',

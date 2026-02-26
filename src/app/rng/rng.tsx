@@ -1,18 +1,23 @@
-'use client'
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Button } from '@/components/ui/button';
+import {
+    Field,
+    FieldError,
+    FieldGroup,
+    FieldLabel,
+    FieldSet,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function RNG() {
     const { register, watch } = useForm({
         defaultValues: {
             from: '1',
-            to: '10'
-        }
+            to: '10',
+        },
     });
 
     const from = watch('from');
@@ -22,7 +27,7 @@ export default function RNG() {
 
     const getFromErrorMsg = () => {
         if (isNaN(fromInt)) {
-            return 'Please enter a valid number'
+            return 'Please enter a valid number';
         }
 
         return null;
@@ -33,7 +38,7 @@ export default function RNG() {
 
     const getToErrorMsg = () => {
         if (isNaN(toInt)) {
-            return 'Please enter a valid number'
+            return 'Please enter a valid number';
         }
 
         if (!isFromValid) {
@@ -66,25 +71,52 @@ export default function RNG() {
             <FieldSet>
                 <FieldGroup>
                     <Field data-invalid={!isFromValid}>
-                        <FieldLabel htmlFor="min-input">From<span className="font-thin">(inclusive)</span></FieldLabel>
-                        <Input id="min-input" type="number" aria-invalid={!isFromValid} {...register('from')} />
-                        {fromErrorMsg && <FieldError>{fromErrorMsg}</FieldError>}
+                        <FieldLabel htmlFor="min-input">
+                            From<span className="font-thin">(inclusive)</span>
+                        </FieldLabel>
+                        <Input
+                            id="min-input"
+                            type="number"
+                            aria-invalid={!isFromValid}
+                            {...register('from')}
+                        />
+                        {fromErrorMsg && (
+                            <FieldError>{fromErrorMsg}</FieldError>
+                        )}
                     </Field>
 
                     <Field data-invalid={!isToValid}>
-                        <FieldLabel htmlFor="max-input">To<span className="font-thin">(inclusive)</span></FieldLabel>
-                        <Input id="max-input" type="number" aria-invalid={!isToValid} {...register('to')} />
+                        <FieldLabel htmlFor="max-input">
+                            To<span className="font-thin">(inclusive)</span>
+                        </FieldLabel>
+                        <Input
+                            id="max-input"
+                            type="number"
+                            aria-invalid={!isToValid}
+                            {...register('to')}
+                        />
                         {toErrorMsg && <FieldError>{toErrorMsg}</FieldError>}
                     </Field>
 
                     <div className="flex flex-col gap-2">
-                        <Button variant="outline" onClick={generateNum} disabled={hasAnyError}>Generate</Button>
+                        <Button
+                            variant="outline"
+                            onClick={generateNum}
+                            disabled={hasAnyError}
+                        >
+                            Generate
+                        </Button>
                     </div>
 
                     {!!(randomNum !== null && !hasAnyError) && (
                         <div className="flex flex-col items-center overflow-hidden text-clip">
-                            <span className="text-sm text-muted-foreground">Random Number #{count}:</span>
-                            <span key={count} className="text-4xl font-bold tracking-tight animate-in fade-in duration-1000">
+                            <span className="text-sm text-muted-foreground">
+                                Random Number #{count}:
+                            </span>
+                            <span
+                                key={count}
+                                className="text-4xl font-bold tracking-tight animate-in fade-in duration-1000"
+                            >
                                 <>{randomNum ?? 'Invalid'}</>
                             </span>
                         </div>

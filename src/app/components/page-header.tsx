@@ -1,12 +1,12 @@
 'use client';
 
-import { HomeButton } from "./HomeButton";
-import { InfoButton } from "./info-button";
+import { HomeButton } from './HomeButton';
+import { InfoButton } from './info-button';
 
 type PageHeaderProps = {
     title: string;
     hideHomeButton?: boolean;
-}
+};
 
 export function PageHeader(props: PageHeaderProps) {
     const { title, hideHomeButton } = props;
@@ -16,7 +16,9 @@ export function PageHeader(props: PageHeaderProps) {
             <div className="justify-self-start">
                 <HomeButton invisible={hideHomeButton} />
             </div>
-            <h1 className="text-3xl font-bold leading-none text-center">{title}</h1>
+            <h1 className="text-3xl font-bold leading-none text-center">
+                {title}
+            </h1>
             <div className="justify-self-end">
                 <InfoButton />
             </div>

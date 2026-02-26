@@ -1,12 +1,12 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
-import Link from "next/link";
+import { Button } from '@/components/ui/button';
+import { Home } from 'lucide-react';
+import Link from 'next/link';
 
 type HomeButtonProps = {
     invisible?: boolean;
-}
+};
 
 export function HomeButton(props: HomeButtonProps) {
     const { invisible } = props;
@@ -14,7 +14,7 @@ export function HomeButton(props: HomeButtonProps) {
     return (
         <Button
             variant="outline"
-            className={"cursor-pointer" + (invisible ? ' invisible' : '')}
+            className={'cursor-pointer' + (invisible ? ' invisible' : '')}
             asChild
         >
             <Link href="/">

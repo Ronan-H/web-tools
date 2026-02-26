@@ -1,4 +1,1 @@
-
-describe('Password Generator', () => {
-    
-});
+describe('Password Generator', () => {});

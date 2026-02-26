@@ -1,5 +1,4 @@
-
-const NO_SHIFT_SYMBOLS = ['-','=','[',']',';',"'",',','.','/'];
+const NO_SHIFT_SYMBOLS = ['-', '=', '[', ']', ';', "'", ',', '.', '/'];
 const DIGITS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 function secureRandomFloat() {
@@ -28,11 +27,11 @@ type PasswordOptions = {
     capitalizeEnd: boolean;
     includeSymbol: boolean;
     includeDigit: boolean;
-}
+};
 
 export function generatePassword(wordlist: string[], options: PasswordOptions) {
     const words = [];
-    
+
     for (let i = 0; i < options.numWords; i++) {
         const nextIndex = randIntBetween(0, wordlist.length);
         words.push(wordlist[nextIndex]);
@@ -53,7 +52,9 @@ export function generatePassword(wordlist: string[], options: PasswordOptions) {
     }
 
     if (options.capitalizeEnd) {
-        password = password.slice(0, password.length - 1) + password.charAt(password.length - 1).toUpperCase();
+        password =
+            password.slice(0, password.length - 1) +
+            password.charAt(password.length - 1).toUpperCase();
     }
 
     return {
@@ -62,7 +63,11 @@ export function generatePassword(wordlist: string[], options: PasswordOptions) {
     };
 }
 
-export function generatePasswords(wordlist: string[], options: PasswordOptions, num: number) {
+export function generatePasswords(
+    wordlist: string[],
+    options: PasswordOptions,
+    num: number
+) {
     const passwords = [];
 
     for (let i = 0; i < num; i++) {

@@ -20,5 +20,5 @@ describe('ABV Calculator', () => {
         const result = await screen.findByTestId('abv-result');
 
         expect(result).toHaveTextContent('13.91%');
-    })
-})
+    });
+});

@@ -1,12 +1,9 @@
-'use client'
+'use client';
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Copy } from "lucide-react";
-import { useForm } from "react-hook-form";
-import CopyButton from "../components/copy-button";
+import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
+import { Textarea } from '@/components/ui/textarea';
+import { useForm } from 'react-hook-form';
+import CopyButton from '../components/copy-button';
 
 const base64Pattern = /^[A-Za-z0-9=+\/]*$/;
 
@@ -14,8 +11,8 @@ export default function Base64Tool() {
     const { register, watch, setValue } = useForm({
         defaultValues: {
             encoded: '',
-            decoded: ''
-        }
+            decoded: '',
+        },
     });
 
     const encoded = watch('encoded');
@@ -55,7 +52,12 @@ export default function Base64Tool() {
                             <FieldLabel htmlFor="decoded">Decoded</FieldLabel>
                             <CopyButton content={decoded} />
                         </div>
-                        <Textarea id="decoded" rows={5} {...register('decoded')} onChange={(e) => encode(e.target.value)} />
+                        <Textarea
+                            id="decoded"
+                            rows={5}
+                            {...register('decoded')}
+                            onChange={(e) => encode(e.target.value)}
+                        />
                     </Field>
 
                     <Field>
@@ -63,7 +65,12 @@ export default function Base64Tool() {
                             <FieldLabel htmlFor="encoded">Encoded</FieldLabel>
                             <CopyButton content={encoded} />
                         </div>
-                        <Textarea id="encoded" rows={5} {...register('encoded')} onChange={(e) => decode(e.target.value)} />
+                        <Textarea
+                            id="encoded"
+                            rows={5}
+                            {...register('encoded')}
+                            onChange={(e) => decode(e.target.value)}
+                        />
                     </Field>
                 </FieldGroup>
             </FieldSet>
