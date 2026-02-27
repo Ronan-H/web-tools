@@ -49,7 +49,9 @@ export default function Base64Tool() {
                 <FieldGroup>
                     <Field>
                         <div className="flex flex-row gap-3">
-                            <FieldLabel htmlFor="decoded">Decoded</FieldLabel>
+                            <FieldLabel htmlFor="decoded">
+                                Decoded (Plaintext)
+                            </FieldLabel>
                             <CopyButton content={decoded} />
                         </div>
                         <Textarea
@@ -62,7 +64,9 @@ export default function Base64Tool() {
 
                     <Field>
                         <div className="flex flex-row gap-3">
-                            <FieldLabel htmlFor="encoded">Encoded</FieldLabel>
+                            <FieldLabel htmlFor="encoded">
+                                Encoded (Base 64)
+                            </FieldLabel>
                             <CopyButton content={encoded} />
                         </div>
                         <Textarea

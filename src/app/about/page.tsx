@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { HomeButton } from '../components/HomeButton';
 import { PageHeader } from '../components/page-header';
 import PageLayout from '../components/page-layout';
 import { TextLink } from '../components/text-link';
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 export default function About() {
     return (
         <PageLayout>
-            <PageHeader title="About" />
+            <PageHeader title="About" leftContent={<HomeButton />} />
             <div className="ml-2 mr-2 text-center">
                 <p>Simple, streamlined, mobile-friendly web tools.</p>
                 <p>Because nobody likes ads or consent popups!</p>
