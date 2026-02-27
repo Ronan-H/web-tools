@@ -1,8 +1,15 @@
+import { Metadata } from 'next';
 import { PageHeader } from '../components/page-header';
 import PageLayout from '../components/page-layout';
 import { TextLink } from '../components/text-link';
 
-export default function AbvCalculatorPage() {
+export const metadata: Metadata = {
+    title: 'About',
+    description:
+        'A description of the site and what it is for, along with information about the author.',
+};
+
+export default function About() {
     return (
         <PageLayout>
             <PageHeader title="About" />

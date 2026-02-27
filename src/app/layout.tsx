@@ -1,8 +1,8 @@
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
+import { ThemeProvider } from 'next-themes';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from 'next-themes';
-import { Toaster } from '@/components/ui/sonner';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -16,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: 'Tidy Web Tools',
-    description: 'Simple web tools, without all the junk',
+    description:
+        'Homepage for Tidy Web Tools: simple and streamlined tools such as converters and calculators.',
 };
 
 export default function RootLayout({

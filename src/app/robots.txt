@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://tidywebtools.com/sitemap.xml
