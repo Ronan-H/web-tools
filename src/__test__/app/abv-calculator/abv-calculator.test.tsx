@@ -21,4 +21,22 @@ describe('ABV Calculator', () => {
 
         expect(result).toHaveTextContent('13.91%');
     });
+
+    it('outputs "-" as the estimated ABV if an input is invalid', async () => {
+        render(<AbvCalculator />);
+
+        const user = userEvent.setup();
+        const ogInput = screen.getByTestId('og-input');
+        const fgInput = screen.getByTestId('fg-input');
+
+        await user.clear(ogInput);
+        await user.type(ogInput, 'invalid');
+
+        await user.clear(fgInput);
+        await user.type(fgInput, '0.998');
+
+        const result = await screen.findByTestId('abv-result');
+
+        expect(result).toHaveTextContent('-');
+    });
 });

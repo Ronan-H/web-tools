@@ -1,0 +1,11 @@
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$BRANCH" = "master" ]; then
+  echo "On master branch — running pnpm test before push..."
+  pnpm test || {
+    echo "pnpm test failed — aborting push."
+    exit 1
+  }
+else
+  echo "Not on master branch ($BRANCH) — skipping tests."
+fi

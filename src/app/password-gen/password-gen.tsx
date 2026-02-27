@@ -83,11 +83,18 @@ export default function PasswordGen() {
     const passwordSection = () => (
         <div className="grid grid-cols-2 grid-cols-[auto_auto] gap-3">
             <div className="flex flex-col items-center">
-                <span className={`${fontSize} break-all font-bold`}>
+                <span
+                    data-testid="password-value"
+                    className={`${fontSize} break-all font-bold`}
+                >
                     {password.password}
                 </span>
-                <span className="italic">{password.words.join(', ')}</span>
-                <span>{password.password.length} characters</span>
+                <span data-testid="password-words" className="italic">
+                    {password.words.join(', ')}
+                </span>
+                <span data-testid="password-length">
+                    {password.password.length} characters
+                </span>
             </div>
         </div>
     );
@@ -144,6 +151,7 @@ export default function PasswordGen() {
                     <Button
                         variant="outline"
                         className={'cursor-pointer aspect-square'}
+                        data-testid="refresh-button"
                         onClick={() => setIteration((i) => i + 1)}
                     >
                         <RefreshCw />
