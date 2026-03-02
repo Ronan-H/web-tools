@@ -10,7 +10,7 @@ import { ChevronsUpDown } from 'lucide-react';
 import React, { useState } from 'react';
 
 type ToolInfoProps = {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 };
 
 export function ToolInfo(props: ToolInfoProps) {
