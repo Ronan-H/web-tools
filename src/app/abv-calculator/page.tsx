@@ -26,12 +26,22 @@ export default function AbvCalculatorPage() {
                 </TextLink>{' '}
                 readings) of the batch before fermentation begins ("Original
                 Gravity"), and after it finishes ("Final Gravity"), and entering
-                it into a simple formula:{' '}
+                it into a simple formula:
+                <br />
                 <span className="italic">ABV = (OG - FG) x 131.25</span>
                 <br />
                 <br />
-                Enter your measured OG and FG values below to get an ABV
-                estimate based on the above formula.
+                <TextLink href="https://en.wikipedia.org/wiki/Attenuation_(brewing)">
+                    Apparent attenuation
+                </TextLink>{' '}
+                is a measure of what percentage of the available sugars have
+                been consumed, using the formula:
+                <br />
+                <span className="italic">AA = (OG - FG) ÷ (OG - 1) x 100</span>
+                <br />
+                <br />
+                Enter your measured OG and FG values below to get estimates
+                based on the above formulas.
             </ToolInfo>
             <AbvCalculator />
         </PageLayout>

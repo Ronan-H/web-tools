@@ -12,7 +12,26 @@ function calcAbv(og: string, fg: string) {
         return '-';
     }
 
-    return `${((ogFloat - fgFloat) * 131.25).toFixed(2)}%`;
+    return `${((ogFloat - fgFloat) * 131.25).toFixed(1)}%`;
+}
+
+function calcAttenuation(og: string, fg: string) {
+    const ogFloat = parseFloat(og);
+    const fgFloat = parseFloat(fg);
+
+    if (Number.isNaN(ogFloat) || Number.isNaN(fgFloat)) {
+        return '-';
+    }
+
+    const gravityProgress = ogFloat - fgFloat;
+    const baseOg = ogFloat - 1;
+
+    if (baseOg === 0) {
+        // cannot divide by zero
+        return '-';
+    }
+
+    return `${((gravityProgress / baseOg) * 100).toFixed(0)}%`;
 }
 
 export default function AbvCalculator() {
@@ -54,16 +73,30 @@ export default function AbvCalculator() {
                         />
                     </Field>
 
-                    <div className="flex flex-col items-center overflow-hidden text-clip">
-                        <span className="text-sm text-muted-foreground">
-                            Estimated ABV
-                        </span>
-                        <span
-                            className="text-4xl font-bold tracking-tight"
-                            data-testid="abv-result"
-                        >
-                            {calcAbv(og, fg)}
-                        </span>
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="flex flex-col items-center overflow-hidden text-clip">
+                            <span className="text-sm text-muted-foreground">
+                                Estimated ABV
+                            </span>
+                            <span
+                                className="text-4xl font-bold tracking-tight"
+                                data-testid="abv-result"
+                            >
+                                {calcAbv(og, fg)}
+                            </span>
+                        </div>
+
+                        <div className="flex flex-col items-center overflow-hidden text-clip">
+                            <span className="text-sm text-muted-foreground">
+                                Apparent Attenuation
+                            </span>
+                            <span
+                                className="text-4xl font-bold tracking-tight"
+                                data-testid="aa-result"
+                            >
+                                {calcAttenuation(og, fg)}
+                            </span>
+                        </div>
                     </div>
                 </FieldGroup>
             </FieldSet>
